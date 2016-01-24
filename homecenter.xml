@@ -1,0 +1,64 @@
+<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="ruleHomeCenter" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+  <rule id="ruleHomeCenter" scope="public">
+    <example>Sarah, allume la lumière du salon</example>
+    <tag>out.action=new Object(); </tag>
+    <item>Sarah</item>	
+      <one-of>
+             <item>allume				<tag>out.action.actionModule="turnOn";		out.action.ttsAction="oké, j'allume";	</tag></item>
+             <item>éteint				<tag>out.action.actionModule="turnOff";		out.action.ttsAction="oké, j'éteint";	</tag></item>
+             <item>active				<tag>out.action.actionModule="turnOn";		out.action.ttsAction="oké, j'active";	</tag></item>
+             <item>désactive			<tag>out.action.actionModule="turnOff";		out.action.ttsAction="oké, je désactive";</tag></item>
+             <item>ouvre				<tag>out.action.actionModule="turnOn";		out.action.ttsAction="oké, j'ouvre";	</tag></item>
+             <item>ferme				<tag>out.action.actionModule="turnOff";		out.action.ttsAction="oké, je ferme";	</tag></item>
+             <item>coupe				<tag>out.action.actionModule="turnOff";		out.action.ttsAction="oké, je coupe";	</tag></item>
+             <item>règle				<tag>out.action.actionModule="setValue";	out.action.ttsAction="oké, je règle";	</tag></item>
+             <item>baisse				<tag>out.action.actionModule="setValue";	out.action.ttsAction="oké, je baisse";	</tag></item>
+             <item>augmente				<tag>out.action.actionModule="setValue";	out.action.ttsAction="oké, j'augmente";	</tag></item>
+             <item>quelle est			<tag>out.action.actionModule="getValue";	out.action.ttsAction="";				</tag></item>
+             <item>quel est l'état de 	<tag>out.action.actionModule="getValue";	out.action.ttsAction="";				</tag></item>
+             <item>donne moi 			<tag>out.action.actionModule="getValue";	out.action.ttsAction="";				</tag></item>
+    </one-of> 
+    <one-of>
+    <!-- Exemples de désignations vocales des modules -->
+    <!-- Plusieurs phrases peuvent être associées au même module -->
+             <!-- VOLETS -->
+             <item>les volets 								<tag>out.action.module="volet_tous";		</tag></item>
+             <item>tous les volets 							<tag>out.action.module="volet_tous";		</tag></item>
+             <!-- LAMPES -->
+             <item>le salon									<tag>out.action.module="lampe_salon";		</tag></item>
+             <item>la lampe du salon						<tag>out.action.module="lampe_salon";		</tag></item>
+             <item>la lumière du salon						<tag>out.action.module="lampe_salon";		</tag></item>
+             <!-- SONDES -->
+             <item>la température du salon					<tag>out.action.module="temp_salon";		</tag></item>	
+             <item>l'hygrométrie du salon					<tag>out.action.module="hygro_salon";		</tag></item>	
+             <item>la luminosité de l'entrée				<tag>out.action.module="lumi_entree";		</tag></item>	
+             <item>la vibration de l'entrée					<tag>out.action.module="sismo_entree";		</tag></item>	             
+             <!-- MÉTÉO -->
+             <item>la météo									<tag>out.action.module="meteo";				</tag></item>	
+             <!-- OUVERTURES -->
+			<item>la porte d'entrée 						<tag>out.action.module="ouverture_1";		</tag></item>
+
+    </one-of>
+    <item repeat="0-1">
+    	<one-of>
+		    <!-- Exemples de désignations vocales des niveaux -->
+             <item>à dix pour cent				<tag>out.action.ttsDim=" à dix pour cent";				out.action.setValue=10;	</tag></item>
+             <item>à vingt pour cent			<tag>out.action.ttsDim=" à vingt pour cent";			out.action.setValue=20;	</tag></item>
+             <item>à vingt cinq pour cent		<tag>out.action.ttsDim=" à vingt cinq pour cent";		out.action.setValue=25;	</tag></item>
+             <item>d'un quart					<tag>out.action.ttsDim=" à vingt cinq pour cent";		out.action.setValue=25;	</tag></item>
+             <item>à trente pour cent			<tag>out.action.ttsDim=" à trente pour cent";			out.action.setValue=30;	</tag></item>
+             <item>à quarante pour cent			<tag>out.action.ttsDim=" à quarante pour cent";			out.action.setValue=40;	</tag></item>
+             <item>à cinquante pour cent		<tag>out.action.ttsDim=" à cinquante pour cent";		out.action.setValue=50;	</tag></item>
+             <item>à moitié						<tag>out.action.ttsDim=" à cinquante pour cent";		out.action.setValue=50;	</tag></item>
+             <item>à soixante pour cent			<tag>out.action.ttsDim=" à soixante pour cent";			out.action.setValue=60;	</tag></item>
+             <item>à soixante dix pour cent		<tag>out.action.ttsDim=" à soixante dix pour cent";		out.action.setValue=70;	</tag></item>
+             <item>à soixante quinze pour cent	<tag>out.action.ttsDim=" à soixante quinze pour cent";	out.action.setValue=75;	</tag></item>
+             <item>aux trois quart				<tag>out.action.ttsDim=" à soixante quinze pour cent";	out.action.setValue=75;	</tag></item>
+             <item>à quatre vingt pour cent		<tag>out.action.ttsDim=" à quatre vingt pour cent";		out.action.setValue=80;	</tag></item>
+             <item>à quatre vingt dix pour cent	<tag>out.action.ttsDim=" à quatre vingt dix pour cent";	out.action.setValue=90;	</tag></item>
+             <item>à cent pour cent				<tag>out.action.ttsDim=" à cent pour cent";				out.action.setValue=100;</tag></item>
+    	</one-of>
+    </item>
+    <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/homecenter";</tag>
+  </rule>
+</grammar>
