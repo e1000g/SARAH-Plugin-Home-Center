@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <devices>
 
 	<!-- Ajoutez ici tous vos modules -->
@@ -23,4 +23,8 @@
 	<device name="fumee_sam" 			type="com.fibaro.FGSS001" 			id="190" 	tts="Il y a de la fumée dans la salle à manger "/>	
 	<device name="chaleur_etage" 		type="com.fibaro.heatDetector" 		id="207" 	tts="Température anormale à l'étage "/>	
 	<device name="inondation_buanderie" type="com.fibaro.FGFS101" 			id="186"	tts="Inondation dans la buanderie "/>	
+	<!-- LOGITECH HARMONY -->
+	<device name="harmony_tv" 	type="com.fibaro.logitechHarmonyActivity" 	id="236" 	tts="La télé "/>
+	<device name="harmony_kodi" type="com.fibaro.logitechHarmonyActivity" 	id="240" 	tts="Kodi "/>
+
 </devices>

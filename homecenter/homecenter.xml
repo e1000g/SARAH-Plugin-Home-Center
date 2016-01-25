@@ -1,4 +1,4 @@
-<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="ruleHomeCenter" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+﻿<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="ruleHomeCenter" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
   <rule id="ruleHomeCenter" scope="public">
     <example>Sarah, allume la lumière du salon</example>
     <tag>out.action=new Object(); </tag>
@@ -15,28 +15,42 @@
              <item>baisse				<tag>out.action.actionModule="setValue";	out.action.ttsAction="oké, je baisse";	</tag></item>
              <item>augmente				<tag>out.action.actionModule="setValue";	out.action.ttsAction="oké, j'augmente";	</tag></item>
              <item>quelle est			<tag>out.action.actionModule="getValue";	out.action.ttsAction="";				</tag></item>
-             <item>quel est l'état de 	<tag>out.action.actionModule="getValue";	out.action.ttsAction="";				</tag></item>
+             <item>quel est l'état 		<tag>out.action.actionModule="getValue";	out.action.ttsAction="";				</tag></item>
              <item>donne moi 			<tag>out.action.actionModule="getValue";	out.action.ttsAction="";				</tag></item>
     </one-of> 
+    <item repeat="0-1">
+    <one-of>
+    		<item>l</item>
+    		<item>le</item>
+    		<item>la</item>
+    		<item>les</item>
+    		<item>tous les</item>
+    		<item>du</item>
+    		<item>de la</item>
+    		<item>des</item>
+    </one-of>
+	</item>
     <one-of>
     <!-- Exemples de désignations vocales des modules -->
     <!-- Plusieurs phrases peuvent être associées au même module -->
              <!-- VOLETS -->
-             <item>les volets 								<tag>out.action.module="volet_tous";		</tag></item>
-             <item>tous les volets 							<tag>out.action.module="volet_tous";		</tag></item>
+             <item>volets 								<tag>out.action.module="volet_tous";		</tag></item>
              <!-- LAMPES -->
-             <item>le salon									<tag>out.action.module="lampe_salon";		</tag></item>
-             <item>la lampe du salon						<tag>out.action.module="lampe_salon";		</tag></item>
-             <item>la lumière du salon						<tag>out.action.module="lampe_salon";		</tag></item>
+             <item>salon								<tag>out.action.module="lampe_salon";		</tag></item>
+             <item>lampe du salon						<tag>out.action.module="lampe_salon";		</tag></item>
+             <item>lumière du salon						<tag>out.action.module="lampe_salon";		</tag></item>
              <!-- SONDES -->
-             <item>la température du salon					<tag>out.action.module="temp_salon";		</tag></item>	
-             <item>l'hygrométrie du salon					<tag>out.action.module="hygro_salon";		</tag></item>	
-             <item>la luminosité de l'entrée				<tag>out.action.module="lumi_entree";		</tag></item>	
-             <item>la vibration de l'entrée					<tag>out.action.module="sismo_entree";		</tag></item>	             
+             <item>température du salon					<tag>out.action.module="temp_salon";		</tag></item>	
+             <item>l'hygrométrie du salon				<tag>out.action.module="hygro_salon";		</tag></item>	
+             <item>luminosité de l'entrée				<tag>out.action.module="lumi_entree";		</tag></item>	
+             <item>vibration de l'entrée				<tag>out.action.module="sismo_entree";		</tag></item>	             
              <!-- MÉTÉO -->
-             <item>la météo									<tag>out.action.module="meteo";				</tag></item>	
+             <item>météo								<tag>out.action.module="meteo";				</tag></item>	
              <!-- OUVERTURES -->
-			<item>la porte d'entrée 						<tag>out.action.module="ouverture_1";		</tag></item>
+			<item>porte d'entrée 						<tag>out.action.module="ouverture_1";		</tag></item>
+             <!-- LOGITECH HARMONY -->
+             <item>télé									<tag>out.action.module="harmony_tv";		</tag></item>
+             <item>kodi									<tag>out.action.module="harmony_kodi";		</tag></item>
 
     </one-of>
     <item repeat="0-1">

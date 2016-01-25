@@ -1,3 +1,4 @@
+// v0.3   : ajout support plugin Logitech Harmony
 // v0.2.1
 
 exports.action = function(data, callback, config) 
@@ -52,6 +53,17 @@ exports.action = function(data, callback, config)
 					url += data.actionModule;
 					json_body = json_body_start + json_body_null + json_body_end;
 					break;
+				case 'com.fibaro.logitechHarmonyActivity' :
+					switch (data.actionModule) { 
+						case "turnOn":
+							url += 'changeActivityState';
+							break;
+						case "turnOff":
+							url += 'changeActivityState';
+							break;
+						default :
+					}
+					break;
 				case 'virtual_device' :
 					if (data.setValue) {
 						 url += 'setSlider';
@@ -99,6 +111,7 @@ exports.action = function(data, callback, config)
 			switch(module.attr.type) {
 				case 'com.fibaro.multilevelSwitch' 	:
 				case 'com.fibaro.binarySwitch' 		:
+				case 'com.fibaro.logitechHarmonyActivity' :
 				case 'com.fibaro.lightSensor' 		:
 				case 'com.fibaro.temperatureSensor' :
 				case 'com.fibaro.humiditySensor' 	:
@@ -162,16 +175,32 @@ exports.action = function(data, callback, config)
 					var weather_wind 		= parseFloat(body.Wind).toString().replace("."," virgule ");
 					var weather_temperature = parseFloat(body.Temperature).toString().replace("."," virgule ");
 						weather_temperature = weather_temperature.replace("-"," moins ")
-					if (parseFloat(body.Temperature) < 0) 
-						tts_sensor_value += "Attention ";
-					tts_sensor_value += "La température est de " 	+ weather_temperature + " degrés. ";
-					tts_sensor_value += "L'hygrométrie est de " 	+ weather_humidity + " pour cent. ";
-					tts_sensor_value += "La vitesse du vent est de "+ weather_wind + " kilomètres heure. ";
+					tts += "La température est de " 	+ weather_temperature + " degrés. ";
+					if (parseFloat(body.Temperature) < 0) tts += "Attention au risque de gel. ";
+					tts += "L'hygrométrie est de " 		+ weather_humidity + " pour cent. ";
+					tts += "La vitesse du vent est de "	+ weather_wind + " kilomètres heure. ";
 					break;
 				case 'iOS_device':
 					break;
 				case 'virtual_device':
-					tts_sensor_value = parseFloat(body.properties.ui.VoletDIM.value).toString();
+					switch (parseFloat(body.properties['ui.VoletDIM.value'])) { 
+						case 0   : tts += " est ouvert"; break;
+						case 99  : 
+						case 100 : tts += " est fermé"; break;
+						default  : tts += " est fermé à " + body.properties.value + " pour cent";
+					}
+					break;
+				case 'com.fibaro.logitechHarmonyActivity' :
+					switch (body.properties['ui.activityCurrentStateValueLabel.caption']) {
+						case 'Activity OFF' :
+							tts += " est arrêté.";
+							break;
+						case 'Running' :
+							tts += " est en marche.";
+							break;
+						default :
+							tts += " est dans un état inconnu.";
+					}
 					break;
 				case 'com.fibaro.multilevelSwitch':
 					switch (parseFloat(body.properties.value)) { 
@@ -182,8 +211,7 @@ exports.action = function(data, callback, config)
 					}
 					break;
 				case 'com.fibaro.binarySwitch':
-					var switch_state = body.properties.value;
-					switch (switch_state) {
+					switch (body.properties.value) {
 						case 'true' : tts += " est allumée"; break;
 						case 'false': tts += " est éteinte"; break;
 						default     : tts += " est dans un état inconnu";
@@ -206,7 +234,8 @@ exports.action = function(data, callback, config)
 					console.log("WARN || unknown sensor '" + module.attr.type + "'!");
 					console.log("WARN || Check your 'device.xml' file");
 			}
-		}
+		} else {tts_sensor_value = "";}
+		
 		tts = tts.replace('%s', tts_sensor_value);
 		console.log(tts);
 		if (data.ttsDim){
