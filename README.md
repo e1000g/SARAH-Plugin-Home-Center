@@ -3,11 +3,12 @@
 Auteur : e1000 (code inspiré du plugin Zibase de Baptiste MARIENVAL)<br />
 
 <p><i>
+Version 0.3.0 (25/01/2016) : support du plugin Logitech Harmony<br />
 Version 0.2.1 (24/01/2016) : support des modules virtuels : sliders<br />
-Version 0.2 (23/01/2016) : support des modules virtuels : boutons<br />
+Version 0.2.0 (23/01/2016) : support des modules virtuels : boutons<br />
 Version 0.1.2 (22/01/2016) : support du module météo<br />
 Version 0.1.1 (21/01/2016) : support des sondes<br />
-Version 0.1 (20/01/2016) : support des binarySwitch multilevelSwitch<br />
+Version 0.1.0 (20/01/2016) : support des binarySwitch multilevelSwitch<br />
 </i></p>
 
 1. CONFIGURATION : homecenter.prop<br />
@@ -295,4 +296,3 @@ Dans le cas ou aucun argument optionnel n'est nécessaire (par exemple pour les 
 réalité, notamment sur la temporalité d'analyse des paroles et de formatage des requêtes, 
 mais elles ont - je l'espère - le mérite de décrire de manière assez juste la logique de fonctionnement 
 de SARAH. </p>
-
