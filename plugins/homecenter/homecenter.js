@@ -96,12 +96,12 @@ exports.action = function(data, callback, config)
 				case 'com.fibaro.multilevelSensor' 	: 
 				case 'weather' 						:
 					console.log("WARN || Device " + module.attr.type + " not designed for POST method");
-					callback({'tts': "Désolée, les modules " + module.attr.type + " n'acceptent pas ce type de commande"});
+					return callback({'tts': "Désolée, les modules " + module.attr.type + " n'acceptent pas ce type de commande"});
 					break;
 				default :
 					console.log("WARN || Unknown device '" + module.attr.type + "'!")
 					console.log("WARN || Check your 'devices.xml' file");
-					callback({'tts': "Désolée, le type de module " + module.attr.type + "m'est inconnu"});
+					return callback({'tts': "Désolée, le type de module " + module.attr.type + "m'est inconnu"});
 			}
 			break;
 		case 'getValue' :
@@ -128,13 +128,13 @@ exports.action = function(data, callback, config)
 				default : // Scenario action
 					console.log("WARN || Unknown device '" + module.attr.type + "'!")
 					console.log("WARN || Check your 'devices.xml' file");
-					callback({'tts': "Désolée, le type de module " + module.attr.type + "m'est inconnu"});
+					return callback({'tts': "Désolée, le type de module " + module.attr.type + "m'est inconnu"});
 			}	
 			break;
 		default :
 			console.log("WARN || Unknown command '" + data.actionModule + "'!");
 			console.log("WARN || Check your 'homecenter.xml' file");
-			callback({'tts': "Désolée, la commande " + data.actionModule + "m'est inconnue"});
+			return callback({'tts': "Désolée, la commande " + data.actionModule + "m'est inconnue"});
 	}
 	
 	console.log("INFO || Sending request to: ");
