@@ -4,19 +4,19 @@
     <tag>out.action=new Object(); </tag>
     <item>Sarah</item>	
       <one-of>
-             <item>allume				<tag>out.action.actionModule="turnOn";		out.action.ttsAction="oké, j'allume";	</tag></item>
-             <item>éteint				<tag>out.action.actionModule="turnOff";		out.action.ttsAction="oké, j'éteint";	</tag></item>
-             <item>active				<tag>out.action.actionModule="turnOn";		out.action.ttsAction="oké, j'active";	</tag></item>
-             <item>désactive			<tag>out.action.actionModule="turnOff";		out.action.ttsAction="oké, je désactive";</tag></item>
-             <item>ouvre				<tag>out.action.actionModule="turnOn";		out.action.ttsAction="oké, j'ouvre";	</tag></item>
-             <item>ferme				<tag>out.action.actionModule="turnOff";		out.action.ttsAction="oké, je ferme";	</tag></item>
-             <item>coupe				<tag>out.action.actionModule="turnOff";		out.action.ttsAction="oké, je coupe";	</tag></item>
-             <item>règle				<tag>out.action.actionModule="setValue";	out.action.ttsAction="oké, je règle";	</tag></item>
-             <item>baisse				<tag>out.action.actionModule="setValue";	out.action.ttsAction="oké, je baisse";	</tag></item>
-             <item>augmente				<tag>out.action.actionModule="setValue";	out.action.ttsAction="oké, j'augmente";	</tag></item>
-             <item>quelle est			<tag>out.action.actionModule="getValue";	out.action.ttsAction="";				</tag></item>
-             <item>quel est l'état 		<tag>out.action.actionModule="getValue";	out.action.ttsAction="";				</tag></item>
-             <item>donne moi 			<tag>out.action.actionModule="getValue";	out.action.ttsAction="";				</tag></item>
+             <item>allume				<tag>out.action.command="turnOn";	out.action.ttsCmd="oké, j'allume";		</tag></item>
+             <item>éteint				<tag>out.action.command="turnOff";	out.action.ttsCmd="oké, j'éteint";		</tag></item>
+             <item>active				<tag>out.action.command="turnOn";	out.action.ttsCmd="oké, j'active";		</tag></item>
+             <item>désactive			<tag>out.action.command="turnOff";	out.action.ttsCmd="oké, je désactive";	</tag></item>
+             <item>ouvre				<tag>out.action.command="turnOn";	out.action.ttsCmd="oké, j'ouvre";		</tag></item>
+             <item>ferme				<tag>out.action.command="turnOff";	out.action.ttsCmd="oké, je ferme";		</tag></item>
+             <item>coupe				<tag>out.action.command="turnOff";	out.action.ttsCmd="oké, je coupe";		</tag></item>
+             <item>règle				<tag>out.action.command="setValue";	out.action.ttsCmd="oké, je règle";		</tag></item>
+             <item>baisse				<tag>out.action.command="setValue";	out.action.ttsCmd="oké, je baisse";		</tag></item>
+             <item>augmente				<tag>out.action.command="setValue";	out.action.ttsCmd="oké, j'augmente";	</tag></item>
+             <item>quelle est			<tag>out.action.command="getValue";	out.action.ttsCmd="";					</tag></item>
+             <item>quel est l'état 		<tag>out.action.command="getValue";	out.action.ttsCmd="";					</tag></item>
+             <item>donne moi 			<tag>out.action.command="getValue";	out.action.ttsCmd="";					</tag></item>
     </one-of> 
     <item repeat="0-1">
     <one-of>
@@ -34,43 +34,43 @@
     <!-- Exemples de désignations vocales des modules -->
     <!-- Plusieurs phrases peuvent être associées au même module -->
              <!-- VOLETS -->
-             <item>volets 								<tag>out.action.module="volet_tous";		</tag></item>
+             <item>volets 						<tag>out.action.module="volet_tous";	</tag></item>
              <!-- LAMPES -->
-             <item>salon								<tag>out.action.module="lampe_salon";		</tag></item>
-             <item>lampe du salon						<tag>out.action.module="lampe_salon";		</tag></item>
-             <item>lumière du salon						<tag>out.action.module="lampe_salon";		</tag></item>
+             <item>salon						<tag>out.action.module="lampe_salon";	</tag></item>
+             <item>lampe du salon				<tag>out.action.module="lampe_salon";	</tag></item>
+             <item>lumière du salon				<tag>out.action.module="lampe_salon";	</tag></item>
              <!-- SONDES -->
-             <item>température du salon					<tag>out.action.module="temp_salon";		</tag></item>	
-             <item>l'hygrométrie du salon				<tag>out.action.module="hygro_salon";		</tag></item>	
-             <item>luminosité de l'entrée				<tag>out.action.module="lumi_entree";		</tag></item>	
-             <item>vibration de l'entrée				<tag>out.action.module="sismo_entree";		</tag></item>	             
+             <item>température du salon			<tag>out.action.module="temp_salon";	</tag></item>	
+             <item>l'hygrométrie du salon		<tag>out.action.module="hygro_salon";	</tag></item>	
+             <item>luminosité de l'entrée		<tag>out.action.module="lumi_entree";	</tag></item>	
+             <item>vibration de l'entrée		<tag>out.action.module="sismo_entree";	</tag></item>	             
              <!-- MÉTÉO -->
-             <item>météo								<tag>out.action.module="meteo";				</tag></item>	
+             <item>météo						<tag>out.action.module="meteo";			</tag></item>	
              <!-- OUVERTURES -->
-			<item>porte d'entrée 						<tag>out.action.module="ouverture_1";		</tag></item>
+			<item>porte d'entrée 				<tag>out.action.module="ouverture_1";	</tag></item>
              <!-- LOGITECH HARMONY -->
-             <item>télé									<tag>out.action.module="harmony_tv";		</tag></item>
-             <item>kodi									<tag>out.action.module="harmony_kodi";		</tag></item>
+             <item>télé							<tag>out.action.module="harmony_tv";	</tag></item>
+             <item>kodi							<tag>out.action.module="harmony_kodi";	</tag></item>
 
     </one-of>
     <item repeat="0-1">
     	<one-of>
 		    <!-- Exemples de désignations vocales des niveaux -->
-             <item>à dix pour cent				<tag>out.action.ttsDim=" à dix pour cent";				out.action.setValue=10;	</tag></item>
-             <item>à vingt pour cent			<tag>out.action.ttsDim=" à vingt pour cent";			out.action.setValue=20;	</tag></item>
-             <item>à vingt cinq pour cent		<tag>out.action.ttsDim=" à vingt cinq pour cent";		out.action.setValue=25;	</tag></item>
-             <item>d'un quart					<tag>out.action.ttsDim=" à vingt cinq pour cent";		out.action.setValue=25;	</tag></item>
-             <item>à trente pour cent			<tag>out.action.ttsDim=" à trente pour cent";			out.action.setValue=30;	</tag></item>
-             <item>à quarante pour cent			<tag>out.action.ttsDim=" à quarante pour cent";			out.action.setValue=40;	</tag></item>
-             <item>à cinquante pour cent		<tag>out.action.ttsDim=" à cinquante pour cent";		out.action.setValue=50;	</tag></item>
-             <item>à moitié						<tag>out.action.ttsDim=" à cinquante pour cent";		out.action.setValue=50;	</tag></item>
-             <item>à soixante pour cent			<tag>out.action.ttsDim=" à soixante pour cent";			out.action.setValue=60;	</tag></item>
-             <item>à soixante dix pour cent		<tag>out.action.ttsDim=" à soixante dix pour cent";		out.action.setValue=70;	</tag></item>
-             <item>à soixante quinze pour cent	<tag>out.action.ttsDim=" à soixante quinze pour cent";	out.action.setValue=75;	</tag></item>
-             <item>aux trois quart				<tag>out.action.ttsDim=" à soixante quinze pour cent";	out.action.setValue=75;	</tag></item>
-             <item>à quatre vingt pour cent		<tag>out.action.ttsDim=" à quatre vingt pour cent";		out.action.setValue=80;	</tag></item>
-             <item>à quatre vingt dix pour cent	<tag>out.action.ttsDim=" à quatre vingt dix pour cent";	out.action.setValue=90;	</tag></item>
-             <item>à cent pour cent				<tag>out.action.ttsDim=" à cent pour cent";				out.action.setValue=100;</tag></item>
+             <item>à dix pour cent				<tag>out.action.ttsDim=" à dix pour cent";				out.action.dimValue=10;	</tag></item>
+             <item>à vingt pour cent			<tag>out.action.ttsDim=" à vingt pour cent";			out.action.dimValue=20;	</tag></item>
+             <item>à vingt cinq pour cent		<tag>out.action.ttsDim=" à vingt cinq pour cent";		out.action.dimValue=25;	</tag></item>
+             <item>d'un quart					<tag>out.action.ttsDim=" à vingt cinq pour cent";		out.action.dimValue=25;	</tag></item>
+             <item>à trente pour cent			<tag>out.action.ttsDim=" à trente pour cent";			out.action.dimValue=30;	</tag></item>
+             <item>à quarante pour cent			<tag>out.action.ttsDim=" à quarante pour cent";			out.action.dimValue=40;	</tag></item>
+             <item>à cinquante pour cent		<tag>out.action.ttsDim=" à cinquante pour cent";		out.action.dimValue=50;	</tag></item>
+             <item>à moitié						<tag>out.action.ttsDim=" à cinquante pour cent";		out.action.dimValue=50;	</tag></item>
+             <item>à soixante pour cent			<tag>out.action.ttsDim=" à soixante pour cent";			out.action.dimValue=60;	</tag></item>
+             <item>à soixante dix pour cent		<tag>out.action.ttsDim=" à soixante dix pour cent";		out.action.dimValue=70;	</tag></item>
+             <item>à soixante quinze pour cent	<tag>out.action.ttsDim=" à soixante quinze pour cent";	out.action.dimValue=75;	</tag></item>
+             <item>aux trois quart				<tag>out.action.ttsDim=" à soixante quinze pour cent";	out.action.dimValue=75;	</tag></item>
+             <item>à quatre vingt pour cent		<tag>out.action.ttsDim=" à quatre vingt pour cent";		out.action.dimValue=80;	</tag></item>
+             <item>à quatre vingt dix pour cent	<tag>out.action.ttsDim=" à quatre vingt dix pour cent";	out.action.dimValue=90;	</tag></item>
+             <item>à cent pour cent				<tag>out.action.ttsDim=" à cent pour cent";				out.action.dimValue=100;</tag></item>
     	</one-of>
     </item>
     <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/homecenter";</tag>
