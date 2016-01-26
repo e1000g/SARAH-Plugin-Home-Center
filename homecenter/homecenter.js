@@ -187,7 +187,7 @@ exports.action = function(data, callback, config)
 						case 0   : tts += " est ouvert"; break;
 						case 99  : 
 						case 100 : tts += " est fermé"; break;
-						default  : tts += " est fermé à " + body.properties.value + " pour cent";
+						default  : tts += " est fermé à " + body.properties['ui.VoletDIM.value'] + " pour cent";
 					}
 					break;
 				case 'com.fibaro.logitechHarmonyActivity' :
