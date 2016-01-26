@@ -1,8 +1,23 @@
-// v0.3.2	: forced turnOn if setValue undefined
-//			: modified console logs 
-// v0.3.1   : bugfixes
-// v0.3.0   : added support for Logitech Harmony plugin
-// v0.2.1
+/*
+Version 0.3.2 (26/01/2016)
+— forced turnOn if setValue undefined
+— modified console logs
+— code cleaning
+Version 0.3.1 (25/01/2016)
+— bugfix : replaced body.properties.value with body.properties['ui.VoletDIM.value'] in virtual_device
+Version 0.3.0 (25/01/2016)
+— support du plugin Logitech Harmony
+Version 0.2.1 (24/01/2016)
+— support des modules virtuels : sliders
+Version 0.2.0 (23/01/2016)
+— support des modules virtuels : boutons
+Version 0.1.2 (22/01/2016)
+— support du module météo
+Version 0.1.1 (21/01/2016)
+— support des sondes
+Version 0.1.0 (20/01/2016)
+— support des binarySwitch multilevelSwitch
+*/
 
 exports.action = function(data, callback, config) 
 {
