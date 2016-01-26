@@ -1,4 +1,7 @@
-// v0.3   : ajout support plugin Logitech Harmony
+// v0.3.2	: forced turnOn if setValue undefined
+//			: modified console logs 
+// v0.3.1   : bugfixes
+// v0.3.0   : added support for Logitech Harmony plugin
 // v0.2.1
 
 exports.action = function(data, callback, config) 
@@ -24,44 +27,48 @@ exports.action = function(data, callback, config)
 	var module = file.childWithAttribute('name', data.module);
 
 	if (!config.url) {
-		console.log("Missing Home Center url");
+		console.log("|HC|Error: Missing Home Center url");
 		return;
 	}
 	// 
-	// Devices action
+	// Devices action : construct URL
 	// 
 	var reqmethod = 'POST';
-	console.log("INFO || Action = " + data.actionModule);
+	console.log("|HC|Info.: Action = " + data.actionModule);
 	switch(data.actionModule) {
 		case 'turnOn' 	: 
 		case 'turnOff' 	:
 		case 'setValue'	:
 			url = http + config.url + ":" + config.port + api_devices + module.attr.id + action_path;
-			console.log("INFO || Type = " + module.attr.type);
+			console.log("|HC|Info.: Type = " + module.attr.type);
 			switch(module.attr.type) {
 				case 'com.fibaro.multilevelSwitch' :
 					if (data.setValue) {
-						console.log("INFO || Dimmer set to " + data.setValue);
+						console.log("|HC|Info.: Dimmer set to " + data.setValue);
 						url += 'setValue';
 						json_body = json_body_start + data.setValue + json_body_end;
 						break;
 					} else {
-						console.log("INFO || Dimmer value not set : turning ON or OFF");
+						console.log("|HC|Info.: Dimmer value not set : turning ON or OFF");
 						// Switching to next case
 					}
 				case 'com.fibaro.binarySwitch' :
+					if (data.actionModule == 'setValue') data.actionModule = 'turnOn';
 					url += data.actionModule;
 					json_body = json_body_start + json_body_null + json_body_end;
 					break;
 				case 'com.fibaro.logitechHarmonyActivity' :
 					switch (data.actionModule) { 
-						case "turnOn":
+						case 'turnOn':
 							url += 'changeActivityState';
 							break;
-						case "turnOff":
+						case 'turnOff':
 							url += 'changeActivityState';
 							break;
 						default :
+							console.log("|HC|Warn.: You shouldn't have reached this point !");
+							console.log("|HC|Warn.: => Please verify 'homecenter.js' file !");
+							return callback({'tts': "Désolée, erreur dans le traitement de la requête pour le module de type " + module.attr.type});
 					}
 					break;
 				case 'virtual_device' :
@@ -72,20 +79,21 @@ exports.action = function(data, callback, config)
 					}
 					else {
 						switch (data.actionModule) { 
-							case "turnOn":
+							case 'turnOn':
 								url += 'pressButton';
 								json_body = json_body_start + module.attr.buttonOn + json_body_end;
 								break;
-							case "turnOff":
+							case 'turnOff':
 								url += 'pressButton';
 								json_body = json_body_start + module.attr.buttonOff + json_body_end;
 								break;
-							case "setValue":
+							case 'setValue':
 								url += 'pressButton';
 								json_body = json_body_start + module.attr.buttonMy + json_body_end;
 							default :
-								console.log("WARN || You shouldn't have reached this point !");
-								console.log("WARN || => Please verify 'homecenter.js' file !");
+								console.log("|HC|Warn.: You shouldn't have reached this point !");
+								console.log("|HC|Warn.: => Please verify 'homecenter.js' file !");
+								return callback({'tts': "Désolée, erreur dans le traitement de la requête pour le module de type " + module.attr.type});
 						}
 					}
 					break;
@@ -95,19 +103,19 @@ exports.action = function(data, callback, config)
 				case 'com.fibaro.seismometer' 		:
 				case 'com.fibaro.multilevelSensor' 	: 
 				case 'weather' 						:
-					console.log("WARN || Device " + module.attr.type + " not designed for POST method");
+					console.log("|HC|Warn.: Device " + module.attr.type + " not designed for POST method");
 					return callback({'tts': "Désolée, les modules " + module.attr.type + " n'acceptent pas ce type de commande"});
 					break;
 				default :
-					console.log("WARN || Unknown device '" + module.attr.type + "'!")
-					console.log("WARN || Check your 'devices.xml' file");
+					console.log("|HC|Warn.: Unknown device '" + module.attr.type + "'!")
+					console.log("|HC|Warn.: Check your 'devices.xml' file");
 					return callback({'tts': "Désolée, le type de module " + module.attr.type + "m'est inconnu"});
 			}
 			break;
 		case 'getValue' :
 			reqmethod='GET';
 			json_body='';
-			console.log("INFO || Type = " + module.attr.type);
+			console.log("|HC|Info.: Type = " + module.attr.type);
 			switch(module.attr.type) {
 				case 'com.fibaro.multilevelSwitch' 	:
 				case 'com.fibaro.binarySwitch' 		:
@@ -125,26 +133,35 @@ exports.action = function(data, callback, config)
 				case 'virtual_device' :
 					url = http + config.url + ":" + config.port + api_devices + module.attr.id;
 					break;
+				case 'HC_user':
+				case 'iOS_device':
+				case 'com.fibaro.motionSensor'		:
+				case 'com.fibaro.FGMS001'			:
+				case 'com.fibaro.FGFS101'			:
+				case 'com.fibaro.FGSS001'			:
+				case 'com.fibaro.heatDetector'		:
+				case 'com.fibaro.doorSensor'		:
+					console.log("|HC|Warn.: Module type '" + module.attr.type + "' not yet implemented.");
+					return callback({'tts': "Désolée, les modules de type " + module.attr.type + "ne sont pas encore implémentés."});
 				default : // Scenario action
-					console.log("WARN || Unknown device '" + module.attr.type + "'!")
-					console.log("WARN || Check your 'devices.xml' file");
+					console.log("|HC|Warn.: Unknown device '" + module.attr.type + "'!")
+					console.log("|HC|Warn.: Check your 'devices.xml' file");
 					return callback({'tts': "Désolée, le type de module " + module.attr.type + "m'est inconnu"});
 			}	
 			break;
 		default :
-			console.log("WARN || Unknown command '" + data.actionModule + "'!");
-			console.log("WARN || Check your 'homecenter.xml' file");
+			console.log("|HC|Warn.: Unknown command '" + data.actionModule + "'!");
+			console.log("|HC|Warn.: Check your 'homecenter.xml' file");
 			return callback({'tts': "Désolée, la commande " + data.actionModule + "m'est inconnue"});
 	}
 	
-	console.log("INFO || Sending request to: ");
-	console.log("INFO || " + url);
+	console.log("|HC|Info.: Sending request to: ");
+	console.log("|HC|Info.: " + url);
 
 	//	
-	// URL
+	// Send Request
 	//
 
-	// Send Request
 	var request = require('request');
 	var options = {
 		method: reqmethod,
@@ -160,16 +177,29 @@ exports.action = function(data, callback, config)
         	body=JSON.parse(body);
      	}
      	else {
-     		console.log("ERRO || Error with url: " + url);
+     		console.log("|HC|Error: Error with url: " + url);
      	}
 		var tts = data.ttsAction + " " + module.attr.tts;
 		
-		console.log("INFO || Id = " + module.attr.id);
-		console.log("INFO || Name = " + module.attr.name);
+		console.log("|HC|Info.: Id = " + module.attr.id);
+		console.log("|HC|Info.: Name = " + module.attr.name);
+	
+	//
+	// Parse JSON answer for GET method
+	//
+	
 		if (data.actionModule == 'getValue') {
 			switch(module.attr.type) {
 				case 'HC_user':
-					break;
+				case 'iOS_device':
+				case 'com.fibaro.motionSensor'		:
+				case 'com.fibaro.FGMS001'			:
+				case 'com.fibaro.FGFS101'			:
+				case 'com.fibaro.FGSS001'			:
+				case 'com.fibaro.heatDetector'		:
+				case 'com.fibaro.doorSensor'		:
+					console.log("|HC|Warn.: Module type '" + module.attr.type + "' not yet implemented.");
+					return callback({'tts': "Désolée, les modules de type " + module.attr.type + "ne sont pas encore implémentés."});
 				case 'weather':
 					var weather_humidity 	= parseFloat(body.Humidity).toString().replace("."," virgule ");
 					var weather_wind 		= parseFloat(body.Wind).toString().replace("."," virgule ");
@@ -179,8 +209,6 @@ exports.action = function(data, callback, config)
 					if (parseFloat(body.Temperature) < 0) tts += "Attention au risque de gel. ";
 					tts += "L'hygrométrie est de " 		+ weather_humidity + " pour cent. ";
 					tts += "La vitesse du vent est de "	+ weather_wind + " kilomètres heure. ";
-					break;
-				case 'iOS_device':
 					break;
 				case 'virtual_device':
 					switch (parseFloat(body.properties['ui.VoletDIM.value'])) { 
@@ -217,12 +245,6 @@ exports.action = function(data, callback, config)
 						default     : tts += " est dans un état inconnu";
 					}
 					break;
-				case 'com.fibaro.motionSensor'		:
-				case 'com.fibaro.FGFS101'			:
-				case 'com.fibaro.FGSS001'			:
-				case 'com.fibaro.heatDetector'		:
-				case 'com.fibaro.doorSensor'		:
-					break;
     			case 'com.fibaro.temperatureSensor'	:
     			case 'com.fibaro.humiditySensor'	:
         		case 'com.fibaro.lightSensor'		:
@@ -231,16 +253,20 @@ exports.action = function(data, callback, config)
 					tts_sensor_value = parseFloat(body.properties.value).toString().replace("."," virgule ");
 					break;
 	    		default:
-					console.log("WARN || unknown sensor '" + module.attr.type + "'!");
-					console.log("WARN || Check your 'device.xml' file");
+					console.log("|HC|Warn.: Unknown sensor '" + module.attr.type + "'!");
+					console.log("|HC|Warn.: Check your 'device.xml' file");
 			}
 		} else {tts_sensor_value = "";}
 		
+	//
+	// tts
+	//
+		
 		tts = tts.replace('%s', tts_sensor_value);
-		console.log(tts);
 		if (data.ttsDim){
 			tts += " " + data.ttsDim;
 		}
+		console.log("|HC|Speak: " + tts);
 		// Callback with TTS
 		callback({'tts': tts});
 	});

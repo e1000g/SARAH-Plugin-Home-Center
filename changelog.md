@@ -1,3 +1,6 @@
+Version 0.3.2 (26/01/2016) : forced turnOn if setValue undefined<br />
+                           : modified console logs<br />
+                           : code cleaning <br />
 Version 0.3.1 (25/01/2016) : bugfix : replaced body.properties.value with body.properties['ui.VoletDIM.value'] in virtual_device<br />
 Version 0.3.0 (25/01/2016) : support du plugin Logitech Harmony<br />
 Version 0.2.1 (24/01/2016) : support des modules virtuels : sliders<br />
