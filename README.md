@@ -2,14 +2,7 @@
 <p>
 Auteur : e1000 (code inspiré du plugin Zibase de Baptiste MARIENVAL)<br />
 
-<p><i>
-Version 0.3.0 (25/01/2016) : support du plugin Logitech Harmony<br />
-Version 0.2.1 (24/01/2016) : support des modules virtuels : sliders<br />
-Version 0.2.0 (23/01/2016) : support des modules virtuels : boutons<br />
-Version 0.1.2 (22/01/2016) : support du module météo<br />
-Version 0.1.1 (21/01/2016) : support des sondes<br />
-Version 0.1.0 (20/01/2016) : support des binarySwitch multilevelSwitch<br />
-</i></p>
+<p><i>Version 0.3.2 (26/01/2016)</i></p>
 
 1. CONFIGURATION : homecenter.prop<br />
 2. MODULES : devices.xml<br />
@@ -24,7 +17,7 @@ Version 0.1.0 (20/01/2016) : support des binarySwitch multilevelSwitch<br />
 <li><b>url</b></li>
 <p>Adresse IP ou nom de domaine sur lequel votre Home Center est accessible (ex.: 192.168.1.12).<br />
 Pour connaître l'adresse IP de votre box, rendez-vous dans la partie <strong>Configuration</strong> puis <strong>Paramètres LAN</strong>.</p>
-<img style="width:1000px;" src="./homecenter/images/configuration_reseau.png" />
+<img style="width:1000px;" src="./plugins/homecenter/images/configuration_reseau.png" />
 
 <li><b>port</b></li>
 <p>Port utilisé par le serveur de la box Home Center. Par défaut, le port 80 est utilisé.</p>
