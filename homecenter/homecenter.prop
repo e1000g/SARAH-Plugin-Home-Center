@@ -2,7 +2,7 @@
   "modules" : { 
     "homecenter"  : {
       "description":"Pilote les appareils de votre Home Center Fibaro",
-      "version" : 	"0.3",
+      "version" : 	"0.3.1",
 	  "url": 		"192.168.1.12",
 	  "port":		"80",
 	  "username": 	"",
