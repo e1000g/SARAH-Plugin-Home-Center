@@ -1,4 +1,6 @@
 /*
+Version 0.3.4 (27/01/2016)
+— added 'update' command to automagically grab every module declared in the homecenter
 Version 0.3.3 (26/01/2016)
 — changes in XML parameters
 Version 0.3.2 (26/01/2016)
@@ -166,6 +168,16 @@ exports.action = function(data, callback, config)
 		}	
 		break;
 	case 'update':
+		if ( (module.attr.name == 'modules') && (module.attr.type == 'update') ) {
+			reqmethod='GET';
+			json_body='';
+			url = 'http://' + config.url + ":" + config.port + '/api/devices';
+		} else {
+			console.log("|HC|Warn.: Command '" + data.command + "' didn't comply to double security check !");
+			console.log("|HC|Warn.: You can only launch an update by asking it for a  module named ");
+			console.log("|HC|Warn.: 'modules' and of 'update' type. Check your 'devices.xml' file.");
+			return callback({'tts': "Désolée, cette commande ne sert qu'à mettre à jour tous les modules. Ne l'utilisez pas à la légère."});
+		}
 		break;
 	default :
 		console.log("|HC|Warn.: Unknown command '" + data.command + "'!");
@@ -278,15 +290,104 @@ exports.action = function(data, callback, config)
 			}
 			break;
 		case 'update':
+			var device_type = [	
+				// Commentez les types que vous ne souhaitez pas utiliser
+				  'com.fibaro.binarySwitch'
+				, 'com.fibaro.multilevelSwitch'
+				, 'com.fibaro.temperatureSensor'
+				, 'com.fibaro.humiditySensor'
+				, 'com.fibaro.lightSensor'
+				, 'com.fibaro.multilevelSensor'
+				, 'weather'
+				//, 'com.fibaro.motionSensor'
+				//, 'com.fibaro.FGFS101'
+				//, 'com.fibaro.FGSS001'
+				//, 'com.fibaro.heatDetector'
+				//, 'com.fibaro.doorSensor'
+				, 'virtual_device'
+				, 'com.fibaro.logitechHarmonyActivity'
+				//, 'HC_user'	
+				//, 'iOS_device'
+			];
 
+			console.log("|HC|Info.: ##### UPDATING XML FILES #####");
+			var now = Date();
+			var fs   = require('fs');
+			var grmfile 	= './plugins/homecenter/homecenter.xml';
+			var grmxml  	= fs.readFileSync(grmfile,'utf8');
+			var grmregexp 	= new RegExp('@[^@]+@','gm');
+			var grmstring	= [];
+			//console.log("|HC|Info.:Saving old 'homecenter.xml' file to 'homecenter-" + dateFormat(now, "yyyymmdd-HHmmss") + ".xml'");
+			//fs.writeFileSync('homecenter-'+dateFormat(now, "yyyymmdd-HHmmss")+'.xml', grmxml, 'utf8');
+			console.log("|HC|Info.:Saving old 'homecenter.xml' file to 'homecenter-.xml'");
+			fs.writeFileSync('./plugins/homecenter/homecenter-.xml', grmxml, 'utf8');
+			var devfile  	= './plugins/homecenter/devices.xml';
+			var devxml   	= fs.readFileSync(devfile,'utf8');
+			var devstring 	= [];
+			var devregexp 	= new RegExp('@[^@]+@','gm');
+			//console.log("|HC|Info.:Saving old 'devices.xml' file to 'devices-" + dateFormat(now, "yyyymmdd-HHmmss") + ".xml'");
+			//fs.writeFileSync('devices-'+dateFormat(now, "yyyymmdd-HHmmss")+'.xml', devxml, 'utf8');
+			console.log("|HC|Info.:Saving old 'devices.xml' file to 'devices-.xml'");
+			fs.writeFileSync('./plugins/homecenter/devices-.xml', devxml, 'utf8');
+
+			//
+			// Looking for devices types, names, and ids
+			//
+			for ( var i = 0; i < body.length; i++ ) {
+				if (body[i].visible == true) {
+					if (grmstring[body[i].type])
+						grmstring[body[i].type] += '\t\t<item>' + body[i].name + '\t\t<tag>out.action.module="' + body[i].name + '"</tag></item>\r\n';
+					else grmstring[body[i].type] = '\t\t<item>' + body[i].name + '\t\t<tag>out.action.module="' + body[i].name + '"</tag></item>\r\n';
+					if (devstring[body[i].type]) 
+						devstring[body[i].type]  += '\t<device name="' + body[i].name + '" \t\ttype="' + body[i].type + '" \tid="' + body[i].id + '" \ttts="' + body[i].name + '" />\r\n';
+					else devstring[body[i].type]  = '\t<device name="' + body[i].name + '" \t\ttype="' + body[i].type + '" \tid="' + body[i].id + '" \ttts="' + body[i].name + '" />\r\n';
+				}
+			}
+			//
+			// Formatting 'homecenter.xml' file content
+			//
+			var grmcontent 	= '@ -->\r\n' 
+							+ '<!--=== FAITES VOS MODIFICATIONS SOUS CETTE LIGNE UNIQUEMENT ====-->\r\n';
+			for (var i = 0 ; i < device_type.length ; i++) { 
+				if ( grmstring[device_type[i]] ) {
+					grmcontent += '\r\n\t\t<!-- Modules de type ' +  device_type[i] + ' -->\r\n\r\n';
+					grmcontent += grmstring[device_type[i]];
+				}
+			}
+			grmcontent 	+= '<!--============= NE PLUS MODIFIER SOUS CETTE LIGNE =============-->\r\n' 
+						+  '<!-- @';
+			grmxml = grmxml.replace(grmregexp,grmcontent);
+			fs.writeFileSync(grmfile, grmxml, 'utf8');
+			//
+			// Formatting 'devices.xml' file content
+			//
+			var devcontent 	= '@ -->\r\n' 
+							+ '<!--=== FAITES VOS MODIFICATIONS SOUS CETTE LIGNE UNIQUEMENT ====-->\r\n';
+			for (var i = 0 ; i < device_type.length ; i++) { 
+				if ( devstring[device_type[i]] ) {
+					devcontent += '\r\n\t<!-- Modules de type ' +  device_type[i] + ' -->\r\n\r\n';
+					devcontent += devstring[device_type[i]];
+				}
+			}
+			devcontent  += '<!--============= NE PLUS MODIFIER SOUS CETTE LIGNE =============-->\r\n\r\n' 
+						+ '<!-- @';
+			devxml = devxml.replace(devregexp,devcontent);
+			fs.writeFileSync(devfile, devxml, 'utf8');
+			//
+			// Quit
+			//
+			console.log("|HC|Info.: ##### UPDATE SUCCESSFULL #####");
+			//SARAH.speak("Mise à jour terminée. Vérifiez vos fichiers de configuration pour l'adapter à vos besoins.");
+			tts = "Mise à jour terminée. Vérifiez vos fichiers de configuration pour l'adapter à vos besoins.";
 			break;
+			
 		default:
 			tts_sensor_value = "";
 		}
-		
-	//
-	// tts
-	//
+
+		//
+		// tts
+		//
 		
 		tts = tts.replace('%s', tts_sensor_value);
 		if (data.ttsDim){

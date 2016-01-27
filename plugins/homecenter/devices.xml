@@ -1,7 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <devices>
 
-	<!-- Ajoutez ici tous vos modules -->
+	<device name="modules"				type="update" 						id="" 		tts=""/>
+
+<!-- DEBUT AUTOCONF @ -->
+<!--=== FAITES VOS MODIFICATIONS SOUS CETTE LIGNE UNIQUEMENT  ===-->
+
+    <!-- Ci-dessous des exemples de déclarations des modules 									-->
+    <!-- La commande vocale "Sarah, mets à jour les modules de la box" permet de générer 		-->
+    <!-- automatiquement le contenu des différents devices (modules). 							-->
+    <!-- Attention toute cette partie sera écrasée si vous faites une mise à jour des modules 	-->
 
 	<!-- MODULES ON/OFF -->
 	<device name="halogene_salon" 		type="com.fibaro.binarySwitch" 		id="90" 	tts=" l'halogène du salon "/>
@@ -26,5 +34,8 @@
 	<!-- LOGITECH HARMONY -->
 	<device name="harmony_tv" 	type="com.fibaro.logitechHarmonyActivity" 	id="236" 	tts="La télé "/>
 	<device name="harmony_kodi" type="com.fibaro.logitechHarmonyActivity" 	id="240" 	tts="Kodi "/>
+
+<!--============= NE PLUS MODIFIER SOUS CETTE LIGNE =============-->
+<!-- @ FIN AUTOCONF -->
 
 </devices>

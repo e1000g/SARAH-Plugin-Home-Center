@@ -17,6 +17,7 @@
              <item>quelle est			<tag>out.action.command="getValue";	out.action.ttsCmd="";					</tag></item>
              <item>quel est l'état 		<tag>out.action.command="getValue";	out.action.ttsCmd="";					</tag></item>
              <item>donne moi 			<tag>out.action.command="getValue";	out.action.ttsCmd="";					</tag></item>
+             <item>méhajour 			<tag>out.action.command="update";	out.action.ttsCmd="";					</tag></item>
     </one-of> 
     <item repeat="0-1">
     <one-of>
@@ -31,8 +32,18 @@
     </one-of>
 	</item>
     <one-of>
-    <!-- Exemples de désignations vocales des modules -->
-    <!-- Plusieurs phrases peuvent être associées au même module -->
+
+			<item>modules de la box				<tag>out.action.module="modules";		</tag></item>
+
+<!-- DEBUT AUTOCONF @ -->
+<!--=== FAITES VOS MODIFICATIONS SOUS CETTE LIGNE UNIQUEMENT  ===-->
+	
+    <!-- Ci-dessous des exemples de désignations vocales des modules 							-->
+    <!-- Plusieurs phrases peuvent être associées au même module 								-->
+    <!-- La commande vocale "Sarah, mets à jour les modules de la box" permet de générer 		-->
+    <!-- automatiquement le contenu des différents items (modules). 							-->
+    <!-- Attention toute cette partie sera écrasée si vous faites une mise à jour des modules 	-->
+    	 
              <!-- VOLETS -->
              <item>volets 						<tag>out.action.module="volet_tous";	</tag></item>
              <!-- LAMPES -->
@@ -51,6 +62,9 @@
              <!-- LOGITECH HARMONY -->
              <item>télé							<tag>out.action.module="harmony_tv";	</tag></item>
              <item>kodi							<tag>out.action.module="harmony_kodi";	</tag></item>
+
+<!--============= NE PLUS MODIFIER SOUS CETTE LIGNE =============-->
+<!-- @ FIN AUTOCONF -->
 
     </one-of>
     <item repeat="0-1">
