@@ -91,6 +91,8 @@ exports.action = function(data, callback, config)
 			}
 			break;
 		case 'virtual_device' :
+// Pour volets Somfy RTS via passerelle Zibase et VD de Zorgonaute84 
+// http://www.domotique-fibaro.fr/index.php/topic/3067-module-virtuel-pour-volet-somfy-avec-slider 
 			if (data.dimValue) {
 				 url += 'setSlider';
 				json_body_value = module.attr.slider + "," + data.dimValue;
