@@ -1,3 +1,12 @@
+Version 0.3.5 (29/08/2016)
+— added rollershutter support
+
+Version 0.3.4 (27/01/2016)
+— added 'update' command to automagically grab every module declared in the homecenter
+
+Version 0.3.3 (26/01/2016)
+— changes in XML parameters
+
 Version 0.3.2 (26/01/2016) <br />
 — forced turnOn if setValue undefined<br />
 — modified console logs<br />
