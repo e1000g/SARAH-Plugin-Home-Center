@@ -54,6 +54,8 @@ Il est conseillé de créer un compte dédié à cet usage, et de ne pas utilise
 	&lt;device name="machine_a_laver" 		type="com.fibaro.binarySwitch" 		id="158" 	tts=" la machine à laver " /&gt;
 	&lt;!-- com.fibaro.multiLevelSwitch --&gt;
 	&lt;device name="lampe_chambre" 		type="com.fibaro.multiLevelSwitch" 	id="80" 	tts=" la lampe de la chambre " /&gt;
+	&lt;!-- com.fibaro.blind --&gt;
+	&lt;device name="volet_chambre" 		type="com.fibaro.blind	 		id="80" 	tts=" le volet de la chambre " /&gt;
 	&lt;!-- VIRTUELS --&gt;
 	&lt;device name="volet_tous" 		type="virtual_device" 			id="102" 	tts=" tous les volets "		buttonOn="1" buttonMy="2" buttonOff="3" slider="4" /&gt;
 	&lt;device name="lampe_escalier" 		type="virtual_device" 			id="69" 	tts=" la lampe de l'escalier "	buttonOn="1" buttonOff="2" /&gt;
@@ -108,6 +110,8 @@ Dans le cas des modules virtuels uniquement, on trouve des paramètres suppléme
 	<dd>Actionneur tout ou rien (On/Off)</dd>
 	<dt>com.fibaro.multilevelSwitch</dt>
 	<dd>Gradateur (ou <i>Dimmer</i>)</dd>
+	<dt>com.fibaro.blind</dt>
+	<dd>Volet roulant</dd>
 </dl>
 <li>Détecteurs de sécurité :</li>
 <dl>
