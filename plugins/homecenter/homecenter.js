@@ -1,4 +1,6 @@
 /*
+Version 0.3.5 (29/08/2016)
+— added rollershutter support
 Version 0.3.4 (27/01/2016)
 — added 'update' command to automagically grab every module declared in the homecenter
 Version 0.3.3 (26/01/2016)
@@ -62,13 +64,22 @@ exports.action = function(data, callback, config)
 		console.log("|HC|Info.: Type = " + module.attr.type);
 		switch(module.attr.type) {
 		case 'com.fibaro.multilevelSwitch' :
+		case 'com.fibaro.blind' :		
 			if (data.dimValue) {
-				console.log("|HC|Info.: Dimmer set to " + data.dimValue);
+				if (module.attr.type == 'multilevelSwitch') {
+					console.log("|HC|Info.: Dimmer set to " + data.dimValue);
+				} else {
+					console.log("|HC|Info.: Rollershutter set to " + data.dimValue);				
+				}
 				url += 'setValue';
 				json_body_value = data.dimValue;
 				break;
 			} else {
-				console.log("|HC|Info.: Dimmer value not set : turning ON or OFF");
+				if (module.attr.type == 'multilevelSwitch') {
+					console.log("|HC|Info.: Dimmer value not set : turning ON or OFF");
+				} else {
+					console.log("|HC|Info.: Rollershutter value not set : turning ON or OFF");				
+				}
 				// Switching to next case
 			}
 		case 'com.fibaro.binarySwitch' :
@@ -122,6 +133,12 @@ exports.action = function(data, callback, config)
 		case 'com.fibaro.humiditySensor' 	:
 		case 'com.fibaro.seismometer' 		:
 		case 'com.fibaro.multilevelSensor' 	: 
+		case 'com.fibaro.motionSensor'		:
+		case 'com.fibaro.FGMS001'			:
+		case 'com.fibaro.FGFS101'			:
+		case 'com.fibaro.FGSS001'			:
+		case 'com.fibaro.heatDetector'		:
+		case 'com.fibaro.doorSensor'		:
 		case 'weather' 						:
 			console.log("|HC|Warn.: Device " + module.attr.type + " not designed for POST method");
 			return callback({'tts': "Désolée, les modules " + module.attr.type + " n'acceptent pas ce type de commande"});
@@ -138,6 +155,7 @@ exports.action = function(data, callback, config)
 		console.log("|HC|Info.: Type = " + module.attr.type);
 		switch(module.attr.type) {
 		case 'com.fibaro.multilevelSwitch' 	:
+		case 'com.fibaro.blind' 			:
 		case 'com.fibaro.binarySwitch' 		:
 		case 'com.fibaro.logitechHarmonyActivity' :
 		case 'com.fibaro.lightSensor' 		:
@@ -272,6 +290,14 @@ exports.action = function(data, callback, config)
 				default  : tts += " est allumée à " + body.properties.value + " pour cent";
 				}
 				break;
+			case 'com.fibaro.blind':
+				switch (parseFloat(body.properties.value)) { 
+				case 0   : tts += " est fermé"; break;
+				case 99  : 
+				case 100 : tts += " est ouvert"; break;
+				default  : tts += " est ouvert à " + body.properties.value + " pour cent";
+				}
+				break;
 			case 'com.fibaro.binarySwitch':
 				switch (body.properties.value) {
 				case 'true' : tts += " est allumée"; break;
@@ -296,6 +322,7 @@ exports.action = function(data, callback, config)
 				// Commentez les types que vous ne souhaitez pas utiliser
 				  'com.fibaro.binarySwitch'
 				, 'com.fibaro.multilevelSwitch'
+				, 'com.fibaro.blind'
 				, 'com.fibaro.temperatureSensor'
 				, 'com.fibaro.humiditySensor'
 				, 'com.fibaro.lightSensor'

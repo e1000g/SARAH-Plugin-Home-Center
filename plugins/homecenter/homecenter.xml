@@ -45,6 +45,7 @@
     <!-- Attention toute cette partie sera écrasée si vous faites une mise à jour des modules 	-->
     	 
              <!-- VOLETS -->
+             <item>volets du salon 				<tag>out.action.module="volet_salon";	</tag></item>
              <item>volets 						<tag>out.action.module="volet_tous";	</tag></item>
              <!-- LAMPES -->
              <item>salon						<tag>out.action.module="lampe_salon";	</tag></item>

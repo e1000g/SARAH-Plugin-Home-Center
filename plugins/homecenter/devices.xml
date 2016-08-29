@@ -11,6 +11,8 @@
     <!-- automatiquement le contenu des différents devices (modules). 							-->
     <!-- Attention toute cette partie sera écrasée si vous faites une mise à jour des modules 	-->
 
+	<!-- MODULES VOLETS ROULANTS -->
+	<device name="volet_salon" 			type="com.fibaro.blind" 			id="250" 	tts=" le volet du salon "/>
 	<!-- MODULES ON/OFF -->
 	<device name="halogene_salon" 		type="com.fibaro.binarySwitch" 		id="90" 	tts=" l'halogène du salon "/>
 	<!-- MODULES VARIATEURS -->
