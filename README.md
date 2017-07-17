@@ -229,7 +229,6 @@ Nous allons les illustrer avec la commande suivante :<br />
 		un module, mais ne sait pas encore lequel. 
 		Elle mémorise également le début de sa réponse <tt>tts</tt> 
 		(grâce à <tt>ttsAction=</tt><i>"j'allume"</i>)</p>
-
 	<li>Le <b>module</b> à contrôler (en vert)</li>
 		<p>La première partie constitue le complément de la phrase à prononcer.<br />
 		Exemple : <i>...la cuisine</i> ou <i>... la lampe de la cuisine</i> ou encore
@@ -255,7 +254,6 @@ Nous allons les illustrer avec la commande suivante :<br />
 		<p>La commande pourrait s'arrêter là, et tout fonctionnerait parfaitement. Mais en 
 		fait, il est encore possible de compléter l'ordre donné à SARAH pour préciser le 
 		degré d'allumage de la lampe : ici, 50 %.
-
 	<li>Le <b>paramètre optionnel</b> (en rouge)</li>
 		<p>Vous en avez maintenant l'habitude, la première partie permet de compléter la
 		commande, c'est-à-dire la phrase prononcée à l'intention de SARAH.</p>
